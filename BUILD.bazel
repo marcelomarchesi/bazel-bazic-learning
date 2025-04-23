@@ -1,4 +1,11 @@
 py_binary(
-    name = "main",
+    name = "main_py",
+    main = "main.py",
     srcs = ["src/main.py"],
+)
+
+cc_binary(
+    name = "main_cpp",
+    srcs = ["src/main.cpp"],
+    deps = ["@nlohmann_json//:json"],
 )
