@@ -5,7 +5,9 @@ edition = "2024"
 
 # This is not needed by Bazel, instead it should be put in .rs file
 # itself or in the BUILD.bazel rust_library entry (when supported...)
-#[lib]
-#crate-type = ["cdylib"]
+# UPDATE: I think that Bazel is calling Cargo, I've rebuilt everything
+# from scratch and the print from C++ code is working!
+[lib]
+crate-type = ["cdylib"]
 
 [dependencies]
