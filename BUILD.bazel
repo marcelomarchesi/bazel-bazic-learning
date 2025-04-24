@@ -1,11 +1,24 @@
-py_binary(
-    name = "main_py",
-    main = "main.py",
-    srcs = ["src/main.py"],
+load("@rules_rust//rust:defs.bzl", "rust_library")
+
+# The "crate_type" below is not supported in current rules_rust plugin.
+# I had to put the crate_type inside .rs file itself to generated a
+# loadable .so by C++ code.
+rust_library(
+    name = "rust_ffi_example",
+    srcs = ["lib/lib.rs"],
+#    crate_type = "cdylib",
+    edition = "2024",
 )
 
 cc_binary(
     name = "main_cpp",
     srcs = ["src/main.cpp"],
-    deps = ["@nlohmann_json//:json"],
+    deps = ["@nlohmann_json//:json", ":rust_ffi_example"],
+    linkopts = ["-ldl"],
+)
+
+py_binary(
+    name = "main_py",
+    main = "main.py",
+    srcs = ["src/main.py"],
 )

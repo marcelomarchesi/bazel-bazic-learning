@@ -7,6 +7,8 @@
 
 using json = nlohmann::json;
 
+extern "C" void print_message(const char* message);
+
 void listMessages(const std::string& filename) {
     std::ifstream file(filename);
     if (!file.is_open()) {
@@ -74,6 +76,9 @@ int main(int argc, char* argv[]) {
         printUsage(argv[0]);
         return 1;
     }
+
+    // This is a call to Rust code!
+    print_message("MARCELO VIEIRA MARCHESI");
 
     std::string filename = argv[1];
 
